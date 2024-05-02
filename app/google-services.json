@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "465869815158",
+    "project_id": "muscle-flow",
+    "storage_bucket": "muscle-flow.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465869815158:android:524e496e0ea9488c44ce57",
+        "android_client_info": {
+          "package_name": "com.example.productionproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXHV1xOOdIsEsuJ8-KbIYTNiPAscMD8Bg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

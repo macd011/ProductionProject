@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- VideoView for background video with slight dark overlay -->
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000"/> <!-- Semi-transparent black overlay -->
+
+    <!-- Registration UI components centered with aesthetic spacing and modern design -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:padding="24dp"
+        android:background="@drawable/background_login_panel_transparent"
+        android:layout_margin="24dp">
+
+        <!-- Email EditText with Material Design -->
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email_hint"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"
+            android:background="@android:color/transparent"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"/>
+
+        <!-- Confirm Email EditText -->
+        <EditText
+            android:id="@+id/confirmEmailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/confirm_email_hint"
+            android:textColorHint="#FFFFFF"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/white"
+            android:background="@android:color/transparent"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"/>
+
+        <!-- Password EditText with Material Design -->
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_hint"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"
+            android:background="@android:color/transparent"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"/>
+
+        <!-- Confirm Password EditText -->
+        <EditText
+            android:id="@+id/confirmPasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/confirm_password_hint"
+            android:textColorHint="#FFFFFF"
+            android:inputType="textPassword"
+            android:textColor="@android:color/white"
+            android:background="@android:color/transparent"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"/>
+
+        <!-- Register Button with modern styling -->
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register"
+            android:background="@drawable/button_background"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="18dp"/>
+    </LinearLayout>
+
+</RelativeLayout>
