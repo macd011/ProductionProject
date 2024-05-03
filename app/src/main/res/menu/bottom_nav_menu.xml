@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/home"
+        android:title="Home" />
+    <item
+        android:id="@+id/navigation_cardio"
+        android:icon="@drawable/running"
+        android:title="Cardio" />
+    <item
+        android:id="@+id/navigation_strength"
+        android:icon="@drawable/weight"
+        android:title="Strength" />
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/settings"
+        android:title="Settings" />
+</menu>

@@ -2,79 +2,46 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
 
-    <!-- VideoView for background video with slight dark overlay -->
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true" />
+    <!-- Welcome Message -->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#66000000" />
+    <!-- GridLayout for Section 1, 2, and 3 -->
 
-    <!-- Login UI components centered with aesthetic spacing and modern design -->
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="16dp"
+        android:text="Welcome, User!"
+        android:textSize="24sp" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:padding="24dp"
-        android:background="@drawable/background_login_panel_transparent"
-        android:layout_margin="24dp">
+        android:layout_below="@id/tvWelcome"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:layout_above="@+id/bottom_navigation">
 
-        <!-- Email EditText with Material Design -->
-        <EditText
-            android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email_hint"
-            android:textColorHint="#FFFFFF"
-            android:textColor="#FFFFFF"
-            android:background="@android:color/transparent"
-            android:inputType="textEmailAddress"
-            android:padding="12dp"/>
+        <!-- Buttons previously mentioned are placed here -->
 
-        <!-- Password EditText with Material Design -->
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password_hint"
-            android:textColorHint="#FFFFFF"
-            android:textColor="#FFFFFF"
-            android:background="@android:color/transparent"
-            android:inputType="textPassword"
-            android:padding="12dp"
-            android:layout_marginTop="12dp"/>
+    </GridLayout>
 
-        <!-- Login Button with modern styling -->
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:background="@drawable/button_background"
-            android:textColor="@color/white"
-            android:layout_marginTop="18dp"/>
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@color/nav_item_color_state"
+        app:itemTextColor="@color/nav_item_color_state"/>
 
-        <!-- Signup Text Button -->
-        <TextView
-            android:id="@+id/signupTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/signup_prompt"
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorAccent"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:layout_marginTop="18dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/loginButton"/>
-    </LinearLayout>
 </RelativeLayout>
