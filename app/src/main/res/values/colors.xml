@@ -11,6 +11,12 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="bottom_nav_active">#3F51B5</color>
+    <color name="design_default_color_primary">#6200EE</color>
     <color name="bottom_nav_inactive">#BDBDBD</color>
+    <color name="slate_grey">#2B2B2B</color>
+    <color name="navy">#000080</color>
+    <color name="dark_turquoise">#00CED1</color>
+    <color name="dark_nav_bar">#1A1A1A</color>
+    <color name="widget_border">#007FFF</color> <!-- A vibrant blue for contrast -->
 
 </resources>

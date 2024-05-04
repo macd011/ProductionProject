@@ -5,16 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
-    <!-- Welcome Message -->
-
-    <!-- GridLayout for Section 1, 2, and 3 -->
 
     <TextView
         android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
+        android:layout_width="185dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="13dp"
         android:layout_marginBottom="16dp"
         android:text="Welcome, User!"
         android:textSize="24sp" />
@@ -24,13 +21,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvWelcome"
+        android:padding="16dp"
+        android:alignmentMode="alignMargins"
         android:columnCount="2"
-        android:rowCount="3"
         android:layout_above="@+id/bottom_navigation">
-
-        <!-- Buttons previously mentioned are placed here -->
-
     </GridLayout>
+
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
