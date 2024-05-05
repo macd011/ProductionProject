@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="@color/slate_grey">
+
+    <TextView
+        android:id="@+id/tvWorkoutName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:text="Push Ups"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/tvReps"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:text="10"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tvSets"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:text="3"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tvDifficulty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:text="Medium"
+        android:gravity="center"/>
+</LinearLayout>

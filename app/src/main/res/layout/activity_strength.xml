@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/slate_grey"
     android:padding="16dp">
 
@@ -12,19 +12,95 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/proxima_nova_black"
         android:text="STRENGTH PLANNER"
         android:textColor="@android:color/white"
-        android:textSize="41sp" />
+        android:textSize="41sp"
+        android:fontFamily="@font/proxima_nova_black"/>
 
-    <!-- Bottom Navigation View -->
+    <Spinner
+        android:id="@+id/spinnerTrainingSplit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/tvHeaderStrength"
+        android:entries="@array/training_splits"
+        android:minHeight="48dp"/>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerTrainingSplit"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:id="@+id/layoutAddWorkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/etWorkoutName"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_weight="3"
+                android:hint="Workout"
+                android:minHeight="48dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white" />
+
+            <EditText
+                android:id="@+id/etReps"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:hint="Reps"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white" />
+
+            <EditText
+                android:id="@+id/etSets"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:hint="Sets"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white" />
+
+            <EditText
+                android:id="@+id/etRPE"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="16dp"
+                android:hint="RPE"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white" />
+
+
+            <ImageButton
+                android:id="@+id/btnAddWorkout"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="@string/add_workout"
+                android:src="@android:drawable/ic_input_add" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWorkouts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontalScrollView"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@color/nav_item_color_state"
         app:itemTextColor="@color/nav_item_color_state"
