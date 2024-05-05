@@ -3,31 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp">
-
+    android:background="@color/slate_grey">
 
     <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="377dp"
-        android:layout_height="83dp"
+        android:id="@+id/tvHeaderStrength"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/proxima_nova_black"
-        android:text="DASHBOARD"
-        android:textColor="@color/white"
+        android:text="STRENGTH PLANNER"
+        android:textColor="@android:color/white"
         android:textSize="40sp" />
-
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvWelcome"
-        android:padding="16dp"
-        android:alignmentMode="alignMargins"
-        android:columnCount="2"
-        android:layout_above="@+id/bottom_navigation">
-    </GridLayout>
-
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -36,9 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
-        app:itemIconTint="@color/nav_item_color_state"
-        app:itemTextColor="@color/nav_item_color_state"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav_menu" />
-
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@color/nav_item_color_state"
+        app:itemTextColor="@color/nav_item_color_state"/>
 </RelativeLayout>

@@ -3,15 +3,25 @@ package com.example.productionproject.viewmodel
 import android.os.Bundle
 import android.widget.Button
 import android.widget.GridLayout
-import androidx.appcompat.app.AppCompatActivity
 import com.example.productionproject.R
+import com.example.productionproject.view.BaseActivity
 import com.google.android.material.card.MaterialCardView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+    override fun getContentViewId(): Int {
+        return R.layout.activity_main
+    }
+
+    override fun getNavigationMenuItemId(): Int {
+        return R.id.navigation_home
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setUpWidgets()
+    }
 
+    private fun setUpWidgets() {
         val gridLayout = findViewById<GridLayout>(R.id.gridLayout)
         gridLayout.columnCount = 2  // Maximum number of columns
 
@@ -20,7 +30,9 @@ class MainActivity : AppCompatActivity() {
         var index = 0
         widgetConfigs.forEach { count ->
             for (i in 0 until count) {
-                gridLayout.addView(createCardWithButton(index, count), createLayoutParams(index, count))
+                val layoutParams = createLayoutParams(index, count)
+                val cardView = createCardWithButton(index, count)
+                gridLayout.addView(cardView, layoutParams)
                 index++
             }
         }
@@ -38,15 +50,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createCardWithButton(index: Int, count: Int): MaterialCardView {
-        val context = this
-        val cardView = MaterialCardView(context)
+        val cardView = MaterialCardView(this)
         cardView.cardElevation = 8f
         cardView.radius = 16f
         cardView.strokeWidth = 2  // Updated for thicker borders
-        cardView.strokeColor = context.getColor(R.color.design_default_color_primary)
+        cardView.strokeColor = getColor(R.color.design_default_color_primary)
         cardView.setBackgroundResource(R.drawable.widget_gradient)  // Set gradient background
 
-        val button = Button(context)
+        val button = Button(this)
         button.layoutParams = GridLayout.LayoutParams().apply {
             width = GridLayout.LayoutParams.MATCH_PARENT
             height = GridLayout.LayoutParams.WRAP_CONTENT
