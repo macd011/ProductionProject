@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.example.productionproject.R
 import com.example.productionproject.viewmodel.MainActivity
 
-
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth

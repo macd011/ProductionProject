@@ -1,82 +1,63 @@
 package com.example.productionproject.viewmodel
 
+import android.app.AlertDialog
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
-import android.widget.GridLayout
+import android.text.InputType
+import android.widget.CalendarView
+import android.widget.EditText
+import android.widget.LinearLayout
 import com.example.productionproject.R
 import com.example.productionproject.view.BaseActivity
-import com.google.android.material.card.MaterialCardView
+import androidx.core.content.edit
 
 class MainActivity : BaseActivity() {
-    override fun getContentViewId(): Int {
-        return R.layout.activity_main
-    }
+    override fun getContentViewId(): Int = R.layout.activity_main
 
-    override fun getNavigationMenuItemId(): Int {
-        return R.id.navigation_home
-    }
+    override fun getNavigationMenuItemId(): Int = R.id.navigation_home
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setUpWidgets()
+
+        val calendarView = findViewById<CalendarView>(R.id.calendarView)
+        val sharedPreferences = getSharedPreferences("TrainingData", MODE_PRIVATE)
+
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            val date = "$year-${month+1}-$dayOfMonth"
+            showNoteDialog(date, sharedPreferences)
+        }
     }
 
-    private fun setUpWidgets() {
-        val gridLayout = findViewById<GridLayout>(R.id.gridLayout)
-        gridLayout.columnCount = 2  // Maximum number of columns
+    private fun showNoteDialog(date: String, sharedPreferences: SharedPreferences) {
+        val editText = EditText(this).apply {
+            setText(sharedPreferences.getString(date, ""))
+            setTextColor(Color.BLACK)
+            setHint("Enter Workout Note")
+            setHintTextColor(Color.GRAY)
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+            maxLines = 4
+            isVerticalScrollBarEnabled = true
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
 
-        // Create six widgets dynamically
-        val widgetConfigs = listOf(2, 1, 2) // Represents the number of cards in each row
-        var index = 0
-        widgetConfigs.forEach { count ->
-            for (i in 0 until count) {
-                val layoutParams = createLayoutParams(index, count)
-                val cardView = createCardWithButton(index, count)
-                gridLayout.addView(cardView, layoutParams)
-                index++
+        AlertDialog.Builder(this)
+            .setTitle("Enter Workout Note $date")
+            .setView(editText)
+            .setPositiveButton("Save") { dialog, _ ->
+                sharedPreferences.edit {
+                    putString(date, editText.text.toString())
+                    apply()
+                }
+                dialog.dismiss()
             }
-        }
-    }
-
-    private fun createLayoutParams(index: Int, count: Int): GridLayout.LayoutParams {
-        return GridLayout.LayoutParams(
-            GridLayout.spec(index / 2, 1f),
-            GridLayout.spec(index % 2, if (count == 2) 1f else 2f)
-        ).apply {
-            width = 0  // MATCH_PARENT behavior within each grid column
-            height = GridLayout.LayoutParams.WRAP_CONTENT
-            setMargins(8, 8, 8, 8)
-        }
-    }
-
-    private fun createCardWithButton(index: Int, count: Int): MaterialCardView {
-        val cardView = MaterialCardView(this)
-        cardView.cardElevation = 8f
-        cardView.radius = 16f
-        cardView.strokeWidth = 2  // Updated for thicker borders
-        cardView.strokeColor = getColor(R.color.design_default_color_primary)
-        cardView.setBackgroundResource(R.drawable.widget_gradient)  // Set gradient background
-
-        val button = Button(this)
-        button.layoutParams = GridLayout.LayoutParams().apply {
-            width = GridLayout.LayoutParams.MATCH_PARENT
-            height = GridLayout.LayoutParams.WRAP_CONTENT
-            columnSpec = GridLayout.spec(index % 2, if (count == 2) 1f else 2f)
-        }
-        button.text = getTitleForButton(index)
-        button.background = null  // Allow card background to show through
-
-        cardView.addView(button)
-        return cardView
-    }
-
-    private fun getTitleForButton(index: Int): String = when (index) {
-        0 -> "Progress Tracker"
-        1 -> "TDEE Calculator"
-        2 -> "Training Planner"
-        3 -> "Settings"
-        4 -> "New Widget 1"
-        5 -> "New Widget 2"
-        else -> "Extra Widget"
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
     }
 }

@@ -3,17 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/slate_grey">
+    android:background="@color/slate_grey"
+    android:padding="16dp">
+
 
     <TextView
         android:id="@+id/tvHeaderCardio"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/proxima_nova_black"
         android:text="CARDIO PLANNER"
         android:textColor="@android:color/white"
-        android:textSize="40sp" />
+        android:textSize="41sp" />
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,9 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
         android:background="?android:attr/windowBackground"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/nav_item_color_state"
-        app:itemTextColor="@color/nav_item_color_state"/>
+        app:itemTextColor="@color/nav_item_color_state"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
+
 </RelativeLayout>
