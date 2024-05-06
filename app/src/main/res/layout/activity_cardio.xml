@@ -6,7 +6,6 @@
     android:background="@color/slate_grey"
     android:padding="16dp">
 
-
     <TextView
         android:id="@+id/tvHeaderCardio"
         android:layout_width="match_parent"
@@ -18,6 +17,108 @@
         android:text="CARDIO PLANNER"
         android:textColor="@android:color/white"
         android:textSize="41sp" />
+
+    <!-- Cardio Planner UI -->
+    <LinearLayout
+        android:id="@+id/llCardioPlanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvHeaderCardio"
+        android:orientation="vertical"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/textViewWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weight"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/editTextWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/textViewHeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Height"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/editTextHeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/textViewAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/editTextAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/textViewGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <Spinner
+            android:id="@+id/spinnerGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/gender_options" />
+
+        <TextView
+            android:id="@+id/textViewZone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Training Zone"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <Spinner
+            android:id="@+id/spinnerZone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/zone_options" />
+
+        <Button
+            android:id="@+id/buttonCalculate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Calculate"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/textViewResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Result:"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:paddingTop="16dp"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

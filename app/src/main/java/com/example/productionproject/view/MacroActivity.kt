@@ -1,10 +1,98 @@
 package com.example.productionproject.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.productionproject.R
+import com.example.productionproject.data.MacroCalculator
+import com.example.productionproject.databinding.ActivityMacroBinding
+import kotlin.math.roundToInt
 
-class MacroActivity : BaseActivity() {
-    override fun getContentViewId(): Int = R.layout.activity_macro
-    override fun getNavigationMenuItemId(): Int = R.id.navigation_macro
+class MacroActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMacroBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMacroBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initializeSpinners()
+        setupButtonListener()
+    }
+
+    private fun initializeSpinners() {
+        ArrayAdapter.createFromResource(this, R.array.gender_options, android.R.layout.simple_spinner_item).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerGender.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(this, R.array.activity_level_options, android.R.layout.simple_spinner_item).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerActivityLevel.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(this, R.array.goal_options, android.R.layout.simple_spinner_item).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerGoal.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(this, R.array.unit_options, android.R.layout.simple_spinner_item).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerUnits.adapter = adapter
+        }
+    }
+
+    private fun setupButtonListener() {
+        binding.buttonCalculate.setOnClickListener {
+            try {
+                val gender = binding.spinnerGender.selectedItem.toString()
+                val units = binding.spinnerUnits.selectedItem.toString()
+                val weight = convertWeight(binding.editTextWeight.text.toString().toDoubleOrNull(), units)
+                val height = convertHeight(binding.editTextHeight.text.toString().toDoubleOrNull(), units)
+                val age = binding.editTextAge.text.toString().toIntOrNull() ?: throw NumberFormatException("Invalid age input")
+                val activityLevel = getActivityLevel(binding.spinnerActivityLevel.selectedItem.toString())
+
+                val calculator = MacroCalculator()
+                val tdee = calculator.calculateTDEE(gender, weight, height, age, activityLevel)
+                val goal = binding.spinnerGoal.selectedItem.toString()
+                val adjustedCalories = calculator.adjustCaloriesForGoal(tdee, goal)
+                val macros = calculator.calculateMacros(adjustedCalories, 45.0, 30.0, 25.0)
+
+                binding.textViewResult.text = "Result:"
+                binding.textViewCalories.text = "Calories: ${adjustedCalories.roundToInt()} kcal"
+                binding.textViewCarbs.text = "Carbs: ${macros.first.roundToInt()} g"
+                binding.textViewProtein.text = "Protein: ${macros.second.roundToInt()} g"
+                binding.textViewFat.text = "Fat: ${macros.third.roundToInt()} g"
+            } catch (e: Exception) {
+                Toast.makeText(this, "Please ensure all fields are filled correctly.", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun convertWeight(weight: Double?, units: String): Double {
+        return if (units == "Imperial (lbs, in)") {
+            weight ?: 0.0 * 0.453592 // Convert pounds to kilograms
+        } else {
+            weight ?: 0.0 // Assume metric (kg) is entered
+        }
+    }
+
+    private fun convertHeight(height: Double?, units: String): Double {
+        return if (units == "Imperial (lbs, in)") {
+            height ?: 0.0 * 2.54 // Convert inches to centimeters
+        } else {
+            height ?: 0.0 // Assume metric (cm) is entered
+        }
+    }
+
+    private fun getActivityLevel(level: String): Double {
+        return when (level) {
+            "Sedentary" -> 1.2
+            "Lightly Active" -> 1.375
+            "Moderately Active" -> 1.55
+            "Very Active" -> 1.725
+            "Extra Active" -> 1.9
+            else -> 1.0
+        }
+    }
 }

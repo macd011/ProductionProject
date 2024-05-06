@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etWorkoutName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Workout Name"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/etReps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Reps"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/etSets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Sets"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/etRPE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="RPE (Rate of Perceived Exertion)"
+        android:inputType="text"/>
+
+</LinearLayout>

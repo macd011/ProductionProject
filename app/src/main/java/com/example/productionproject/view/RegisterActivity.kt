@@ -1,10 +1,12 @@
 package com.example.productionproject.view
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.example.productionproject.R
 import android.widget.VideoView
 import android.net.Uri
@@ -28,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
             videoView.start()
         }
 
-
+        val usernameEditText: EditText = findViewById(R.id.usernameEditText) // Add this line in your XML as well
         val emailEditText: EditText = findViewById(R.id.emailEditText)
         val confirmEmailEditText: EditText = findViewById(R.id.confirmEmailEditText)
         val passwordEditText: EditText = findViewById(R.id.passwordEditText)
@@ -36,6 +38,7 @@ class RegisterActivity : AppCompatActivity() {
         val registerButton: TextView = findViewById(R.id.registerButton)
 
         registerButton.setOnClickListener {
+            val username = usernameEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
             val confirmEmail = confirmEmailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
@@ -45,13 +48,22 @@ class RegisterActivity : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this, LoginActivity::class.java))  // Redirect back to login
-                            finish()
+                            val user = FirebaseAuth.getInstance().currentUser
+                            val profileUpdates = UserProfileChangeRequest.Builder()
+                                .setDisplayName(username)
+                                .build()
+                            user?.updateProfile(profileUpdates)?.addOnCompleteListener { profileTask ->
+                                if (profileTask.isSuccessful) {
+                                    Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                                    startActivity(Intent(this, LoginActivity::class.java))  // Redirect back to login
+                                    finish()
+                                } else {
+                                    Toast.makeText(this, "Failed to update profile: ${profileTask.exception?.message}", Toast.LENGTH_LONG).show()
+                                }
+                            }
                         } else {
                             Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                         }
-
                     }
             } else {
                 Toast.makeText(this, "Emails or passwords do not match or fields are empty", Toast.LENGTH_LONG).show()

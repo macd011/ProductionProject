@@ -1,3 +1,10 @@
+-keepclassmembers class com.example.productionproject.data.TrainingDay {
+    public <init>();
+}
+-keep class com.example.productionproject.data.TrainingDay { *; }
+-keep class com.example.productionproject.data.Workout { *; }
+
+
 # Add project specific ProGuard rules here.
 # You can control the set of applied configuration files using the
 # proguardFiles setting in build.gradle.

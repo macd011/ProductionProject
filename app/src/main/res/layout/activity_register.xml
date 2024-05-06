@@ -26,6 +26,20 @@
         android:background="@drawable/background_login_panel_transparent"
         android:layout_margin="24dp">
 
+        <!-- Username EditText with Material Design -->
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username_hint"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"
+            android:background="@android:color/transparent"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"/>
+
+
         <!-- Email EditText with Material Design -->
         <EditText
             android:id="@+id/emailEditText"

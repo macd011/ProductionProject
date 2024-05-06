@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.productionproject.R
+import com.example.productionproject.data.Workout
 
 class WorkoutAdapter(
-    private val workouts: MutableList<StrengthActivity.Workout>,
+    private val workouts: MutableList<Workout>,
     private val interactionListener: InteractionListener
 ) : RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
 
@@ -22,16 +23,18 @@ class WorkoutAdapter(
     }
 
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
-        holder.bind(workouts[position])
-        holder.itemView.setOnClickListener {
-            interactionListener.onItemSelected(position)
+        if (position in workouts.indices) {
+            holder.bind(workouts[position])
+            holder.itemView.setOnClickListener {
+                interactionListener.onItemSelected(position)
+            }
         }
     }
 
     override fun getItemCount() = workouts.size
 
     class WorkoutViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(workout: StrengthActivity.Workout) {
+        fun bind(workout: Workout) {
             itemView.findViewById<TextView>(R.id.tvWorkoutName).text = workout.name
             itemView.findViewById<TextView>(R.id.tvReps).text = workout.reps.toString()
             itemView.findViewById<TextView>(R.id.tvSets).text = workout.sets.toString()
