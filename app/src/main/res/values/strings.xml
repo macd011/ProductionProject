@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Muscle Flow</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
@@ -18,19 +17,19 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="username_hint">Username</string>
-    <string name="add_workout">Notifications</string>
+    <string name="add_workout">Add Workout</string>
     <string-array name="training_splits">
         <item>Push, Pull, Legs</item>
         <item>Arnold Split</item>
         <item>Upper, Lower</item>
     </string-array>
     <string-array name="training_days">
-
     </string-array>
     <string-array name="gender_options">
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
     <string-array name="activity_level_options">
         <item>Sedentary</item>
         <item>Lightly Active</item>
@@ -38,11 +37,13 @@
         <item>Very Active</item>
         <item>Extra Active</item>
     </string-array>
+
     <string-array name="goal_options">
         <item>Cutting</item>
         <item>Maintaining</item>
         <item>Bulking</item>
     </string-array>
+
     <string-array name="activity_level_values">
         <item>1.2</item>
         <item>1.375</item>
@@ -50,18 +51,26 @@
         <item>1.725</item>
         <item>1.9</item>
     </string-array>
+
     <string-array name="unit_options">
         <item>Metric (kg, cm)</item>
         <item>Imperial (lbs, in)</item>
     </string-array>
+
     <string-array name="zone_options">
-        <item>Recovery/Easy (50-60% MHR)</item>
-        <item>Aerobic/Base (60-70% MHR)</item>
-        <item>Tempo (70-80% MHR)</item>
-        <item>Lactate Threshold (80-90% MHR)</item>
-        <item>Anaerobic (90-100% MHR)</item>
+        <item>Recovery/Easy (50–60% MHR)</item>
+        <item>Aerobic/Base (60–70% MHR)</item>
+        <item>Tempo (70–80% MHR)</item>
+        <item>Lactate Threshold (80–90% MHR)</item>
+        <item>Anaerobic (90–100% MHR)</item>
     </string-array>
 
-
+    <string name="app_name">Muscle Flow</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="edit_profile_picture">Edit Profile Picture</string>
+    <string name="user_dashboard">USER DASHBOARD</string>
+    <string name="result">Result:</string>
+    <string name="logout">Logout</string>
 
 </resources>

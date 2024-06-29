@@ -1,16 +1,16 @@
 package com.example.productionproject.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.productionproject.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.example.productionproject.R
-import android.widget.VideoView
-import android.net.Uri
-import android.widget.TextView
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
             videoView.start()
         }
 
-        val usernameEditText: EditText = findViewById(R.id.usernameEditText) // Add this line in your XML as well
+        val usernameEditText: EditText = findViewById(R.id.usernameEditText)
         val emailEditText: EditText = findViewById(R.id.emailEditText)
         val confirmEmailEditText: EditText = findViewById(R.id.confirmEmailEditText)
         val passwordEditText: EditText = findViewById(R.id.passwordEditText)

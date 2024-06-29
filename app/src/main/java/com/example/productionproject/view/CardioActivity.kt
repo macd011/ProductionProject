@@ -1,11 +1,16 @@
 package com.example.productionproject.view
 
 import android.os.Bundle
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
 import com.example.productionproject.R
 
-class CardioActivity : AppCompatActivity() {
+class CardioActivity : BaseActivity() {
 
     private lateinit var editTextWeight: EditText
     private lateinit var editTextHeight: EditText
@@ -15,11 +20,20 @@ class CardioActivity : AppCompatActivity() {
     private lateinit var buttonCalculate: Button
     private lateinit var textViewResult: TextView
 
+    override fun getContentViewId(): Int = R.layout.activity_cardio
+    override fun getNavigationMenuItemId(): Int = R.id.navigation_cardio
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cardio)
         initializeViews()
         setupListeners()
+        Log.d("CardioActivity", "onCreate called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("CardioActivity", "onResume called")
     }
 
     private fun initializeViews() {
@@ -65,9 +79,8 @@ class CardioActivity : AppCompatActivity() {
         textViewResult.text = "Suggested Pace: $suggestedPace"
     }
 
-    private fun calculateHeartRate(age: Int?): Int {
-        // Defaulting to the typical formula, 220 minus age
-        return 220 - (age ?: 0)
+    private fun calculateHeartRate(age: Int): Int {
+        return 220 - age
     }
 
     private fun calculateSuggestedPace(mhr: Int, zone: Int): String {
@@ -88,15 +101,5 @@ class CardioActivity : AppCompatActivity() {
             else -> 0.60
         }
         return "Zone $zone: ${lowerBound.toInt()} - ${upperBound.toInt()} bpm"
-    }
-
-    override fun onResume() {
-        super.onResume()
-        selectCardioInNavBar()
-    }
-
-    private fun selectCardioInNavBar() {
-        val bottomNavigationView = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
-        bottomNavigationView.selectedItemId = R.id.navigation_cardio
     }
 }

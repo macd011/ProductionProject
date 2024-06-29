@@ -1,8 +1,15 @@
 package com.example.productionproject.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +17,7 @@ import com.example.productionproject.R
 import com.example.productionproject.data.TrainingDay
 import com.example.productionproject.data.TrainingDayManager
 import com.example.productionproject.data.Workout
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener {
@@ -37,6 +45,20 @@ class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener {
 
         initializeViews()
         loadTrainingDays()
+        Log.d("StrengthActivity", "onCreate called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("StrengthActivity", "onResume called")
+        highlightNavigationItem()
+    }
+
+    private fun highlightNavigationItem() {
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_view)
+        val navigationItemId = getNavigationMenuItemId()
+        Log.d("StrengthActivity", "Highlighting navigation item: $navigationItemId")
+        bottomNavigationView.selectedItemId = navigationItemId
     }
 
     private fun initializeViews() {
@@ -94,7 +116,6 @@ class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener {
         }
     }
 
-
     private fun loadTrainingDays() {
         userId?.let { uid ->
             trainingDayManager.loadTrainingDays(uid) { days ->
@@ -109,7 +130,14 @@ class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener {
 
     private fun loadWorkouts(trainingDayId: String) {
         if (trainingDayId.isNotEmpty()) {
-            trainingDayManager.loadWorkoutsForDay()
+            trainingDayManager.loadWorkoutsForDay(userId!!, trainingDayId) { workouts, message ->
+                this.workouts.clear()
+                if (workouts != null) {
+                    this.workouts.addAll(workouts)
+                }
+                workoutAdapter.notifyDataSetChanged()
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            }
         } else {
             Toast.makeText(this, "Invalid Training Day ID", Toast.LENGTH_LONG).show()
         }

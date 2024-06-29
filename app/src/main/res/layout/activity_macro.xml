@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/slate_grey"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/tvHeaderCardio"
+        android:id="@+id/tvHeaderMacro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,17 +18,14 @@
         android:textColor="@android:color/white"
         android:textSize="41sp" />
 
-    <!-- Macro Calculator UI -->
     <LinearLayout
         android:id="@+id/llMacroCalculator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvHeaderCardio"
+        android:layout_below="@id/tvHeaderMacro"
         android:orientation="vertical"
-        android:layout_above="@id/bottom_navigation"
         android:layout_marginTop="16dp">
 
-        <!-- Gender and Units -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="38dp"
@@ -68,7 +65,6 @@
                 android:entries="@array/unit_options" />
         </LinearLayout>
 
-        <!-- Weight, Height, Age, Activity Level -->
         <TextView
             android:id="@+id/textViewWeight"
             android:layout_width="wrap_content"
@@ -125,7 +121,6 @@
             android:layout_height="30dp"
             android:entries="@array/activity_level_options" />
 
-        <!-- Training Goal -->
         <TextView
             android:id="@+id/textViewGoal"
             android:layout_width="wrap_content"
@@ -140,7 +135,6 @@
             android:layout_height="30dp"
             android:entries="@array/goal_options" />
 
-        <!-- Calculate Button -->
         <Button
             android:id="@+id/buttonCalculate"
             android:layout_width="match_parent"
@@ -151,12 +145,11 @@
             android:textColor="@android:color/white"
             android:background="@color/colorPrimaryDark" />
 
-        <!-- Result TextViews -->
         <TextView
             android:id="@+id/textViewResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Result:"
+            android:text="@string/result"
             android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:paddingTop="16dp"
@@ -200,17 +193,12 @@
 
     </LinearLayout>
 
-    <!-- Bottom Navigation View -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:background="?android:attr/windowBackground"
-        app:itemIconTint="@color/nav_item_color_state"
-        app:itemTextColor="@color/nav_item_color_state"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav_menu" />
-
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu" />
 </RelativeLayout>

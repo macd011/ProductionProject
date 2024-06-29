@@ -33,14 +33,17 @@ class WorkoutAdapter(
 
     override fun getItemCount() = workouts.size
 
-    class WorkoutViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class WorkoutViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val workoutName: TextView = itemView.findViewById(R.id.tvWorkoutName)
+        private val workoutReps: TextView = itemView.findViewById(R.id.tvReps)
+        private val workoutSets: TextView = itemView.findViewById(R.id.tvSets)
+        private val workoutDifficulty: TextView = itemView.findViewById(R.id.tvDifficulty)
+
         fun bind(workout: Workout) {
-            itemView.findViewById<TextView>(R.id.tvWorkoutName).text = workout.name
-            itemView.findViewById<TextView>(R.id.tvReps).text = workout.reps.toString()
-            itemView.findViewById<TextView>(R.id.tvSets).text = workout.sets.toString()
-            itemView.findViewById<TextView>(R.id.tvDifficulty).text = workout.difficulty
+            workoutName.text = workout.name
+            workoutReps.text = workout.reps.toString()
+            workoutSets.text = workout.sets.toString()
+            workoutDifficulty.text = workout.difficulty
         }
     }
 }
-
-

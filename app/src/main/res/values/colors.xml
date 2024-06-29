@@ -16,7 +16,8 @@
     <color name="slate_grey">#2B2B2B</color>
     <color name="navy">#000080</color>
     <color name="dark_turquoise">#00CED1</color>
-    <color name="dark_nav_bar">#1A1A1A</color>
-    <color name="widget_border">#007FFF</color> <!-- A vibrant blue for contrast -->
-
+    <color name="nav_bar">#B2BEB5</color>
+    <color name="dark_nav_bar">#A9A9A9</color>
+    <color name="light_blue">#007FFF</color>
+    <color name="widget_border">#007FFF</color>
 </resources>

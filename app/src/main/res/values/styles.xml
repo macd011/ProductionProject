@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/navy</item>
-        <item name="colorPrimaryDark">@color/dark_turquoise</item>
+        <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/widget_border</item>
         <item name="android:windowBackground">@color/slate_grey</item>
-        <item name="android:navigationBarColor">@color/dark_nav_bar</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
     </style>
     <style name="CalendarWidgetStyle" parent="android:Widget.Material.Light.CalendarView">
@@ -16,4 +13,3 @@
         <item name="android:focusedMonthDateColor">@color/white</item>
     </style>
 </resources>
-
