@@ -40,9 +40,8 @@
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/proxima_nova_black"
                     android:text="USER DASHBOARD"
-                    android:textColor="@android:color/black"
-                    android:textSize="41sp"
-                    android:textAllCaps="true"/>
+                    android:textColor="@color/black"
+                    android:textSize="41sp" />
 
                 <RelativeLayout
                     android:id="@+id/profileSection"

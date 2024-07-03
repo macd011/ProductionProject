@@ -1,9 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/navigation_profile"
-            android:icon="@drawable/ic_profile"
-            android:title="Profile" />
+            android:id="@+id/navigation_diary"
+            android:icon="@drawable/ic_diary"
+            android:title="Training Diary" />
         <item
             android:id="@+id/navigation_macro"
             android:icon="@drawable/ic_macro"
@@ -13,13 +13,13 @@
             android:icon="@drawable/ic_weight"
             android:title="Strength Planner" />
         <item
-            android:id="@+id/navigation_diary"
-            android:icon="@drawable/ic_diary"
-            android:title="Training Diary" />
-        <item
             android:id="@+id/navigation_cardio"
             android:icon="@drawable/ic_cardio"
             android:title="Cardio Zone Calculator" />
+        <item
+            android:id="@+id/navigation_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="Profile" />
         <item
             android:id="@+id/navigation_logout"
             android:icon="@drawable/ic_logout"
