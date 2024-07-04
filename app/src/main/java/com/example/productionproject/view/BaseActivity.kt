@@ -3,11 +3,16 @@ package com.example.productionproject.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.productionproject.R
@@ -29,6 +34,8 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
         setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
+
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -38,18 +45,59 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
         navView.setNavigationItemSelectedListener(this)
         highlightNavigationItem(navView)
+
+        setupCustomToolbar(toolbar)
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("BaseActivity", "onResume called in ${this::class.java.simpleName}")
-        highlightNavigationItem(findViewById(R.id.nav_view))
+    private fun setupCustomToolbar(toolbar: Toolbar) {
+        // Ensure the custom toolbar setup is consistent
+        try {
+            val typeface = ResourcesCompat.getFont(this, R.font.proxima_nova_black)
+            val textView = TextView(this)
+            textView.text = "MUSCLE FLOW"
+            textView.setTextColor(resources.getColor(android.R.color.black))
+            textView.textSize = 24f
+            textView.typeface = typeface
+            textView.gravity = Gravity.CENTER
+
+            val imageView = ImageView(this)
+            imageView.setImageResource(R.drawable.muscleflow)
+            imageView.adjustViewBounds = true
+            imageView.scaleType = ImageView.ScaleType.FIT_CENTER
+            val params = LinearLayout.LayoutParams(
+                115, // Width
+                115  // Height
+            )
+            params.setMargins(16, 8, 16, 8)
+            imageView.layoutParams = params
+
+            val linearLayout = LinearLayout(this)
+            linearLayout.orientation = LinearLayout.HORIZONTAL
+            linearLayout.gravity = Gravity.CENTER
+            linearLayout.addView(textView)
+            linearLayout.addView(imageView)
+
+            val layoutParams = Toolbar.LayoutParams(
+                Toolbar.LayoutParams.WRAP_CONTENT,
+                Toolbar.LayoutParams.MATCH_PARENT
+            )
+            layoutParams.gravity = Gravity.CENTER
+            toolbar.addView(linearLayout, layoutParams)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     protected open fun highlightNavigationItem(navView: NavigationView) {
         val navigationItemId = getNavigationMenuItemId()
         Log.d("BaseActivity", "Highlighting navigation item: $navigationItemId in ${this::class.java.simpleName}")
         navView.setCheckedItem(navigationItemId)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("BaseActivity", "onResume called in ${this::class.java.simpleName}")
+        highlightNavigationItem(findViewById(R.id.nav_view))
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -90,15 +138,5 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
             .create()
             .show()
-    }
-
-    protected fun setupToolbarAndNavigation(toolbar: Toolbar) {
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar,
-            R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
     }
 }
