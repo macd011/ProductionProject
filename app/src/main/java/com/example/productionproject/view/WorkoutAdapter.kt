@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.productionproject.R
 import com.example.productionproject.data.Workout
@@ -40,10 +41,15 @@ class WorkoutAdapter(
         private val workoutDifficulty: TextView = itemView.findViewById(R.id.tvDifficulty)
 
         fun bind(workout: Workout) {
+            itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, android.R.color.white))
             workoutName.text = workout.name
+            workoutName.setTextColor(ContextCompat.getColor(itemView.context, android.R.color.black))
             workoutReps.text = workout.reps.toString()
+            workoutReps.setTextColor(ContextCompat.getColor(itemView.context, android.R.color.black))
             workoutSets.text = workout.sets.toString()
+            workoutSets.setTextColor(ContextCompat.getColor(itemView.context, android.R.color.black))
             workoutDifficulty.text = workout.difficulty
+            workoutDifficulty.setTextColor(ContextCompat.getColor(itemView.context, android.R.color.black))
         }
     }
 }

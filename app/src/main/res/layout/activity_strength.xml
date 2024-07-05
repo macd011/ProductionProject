@@ -1,129 +1,171 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    tools:context=".view.StrengthActivity"
+    android:background="@android:color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/slate_grey"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvHeaderStrength"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="STRENGTH PLANNER"
-            android:textSize="42sp"
-            android:textColor="@android:color/white"
-            android:fontFamily="@font/proxima_nova_black"
-            android:layout_marginBottom="16dp"/>
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/nav_bar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextColor="@android:color/black" />
 
-        <EditText
-            android:id="@+id/etTrainingDayName"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_below="@id/tvHeaderStrength"
-            android:hint="Enter Training Day"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:background="@android:color/transparent"
-            android:inputType="text"/>
-
-        <Button
-            android:id="@+id/btnAddDay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/etTrainingDayName"
-            android:text="Add Day"
-            android:layout_marginTop="8dp"/>
-
-        <Spinner
-            android:id="@+id/spinnerTrainingDays"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_below="@id/btnAddDay"
-            android:minHeight="48dp"/>
-
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/spinnerTrainingDays"
-            android:layout_marginTop="8dp">
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:padding="10dp">
 
             <LinearLayout
-                android:id="@+id/layoutAddWorkout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
 
-                <EditText
-                    android:id="@+id/etWorkoutName"
-                    android:layout_width="100dp"
+                <TextView
+                    android:id="@+id/tvHeaderStrength"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
-                    android:layout_weight="3"
-                    android:hint="Workout"
-                    android:minHeight="48dp"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                    android:text="STRENGTH PLANNER"
+                    android:textColor="@android:color/black"
+                    android:textSize="41sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="7dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/proxima_nova_black"/>
 
-                <EditText
-                    android:id="@+id/etReps"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_weight="1"
-                    android:hint="Reps"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="6dp">
 
-                <EditText
-                    android:id="@+id/etSets"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_weight="1"
-                    android:hint="Sets"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                <EditText
-                    android:id="@+id/etRPE"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginRight="16dp"
-                    android:hint="RPE"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                        <EditText
+                            android:id="@+id/etTrainingDayName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Enter Training Day"
+                            android:inputType="text"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/edit_text_background"/>
 
-                <ImageButton
-                    android:id="@+id/btnAddWorkout"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@null"
-                    android:contentDescription="@string/add_workout"
-                    android:src="@android:drawable/ic_input_add" />
+                        <Button
+                            android:id="@+id/btnAddDay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Add Day"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/button_background"
+                            android:textColor="@android:color/white" />
+
+                        <Spinner
+                            android:id="@+id/spinnerTrainingDays"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/spinner_background"/>
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="8dp">
+
+                                <EditText
+                                    android:id="@+id/etWorkoutName"
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="16dp"
+                                    android:layout_weight="3"
+                                    android:hint="Workout"
+                                    android:minHeight="48dp"
+                                    android:background="@drawable/edit_text_background"
+                                    android:textColor="@android:color/black"
+                                    android:textColorHint="@android:color/darker_gray" />
+
+                                <EditText
+                                    android:id="@+id/etReps"
+                                    android:layout_width="48dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="16dp"
+                                    android:layout_weight="1"
+                                    android:hint="Reps"
+                                    android:background="@drawable/edit_text_background"
+                                    android:textColor="@android:color/black"
+                                    android:textColorHint="@android:color/darker_gray" />
+
+                                <EditText
+                                    android:id="@+id/etSets"
+                                    android:layout_width="48dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="16dp"
+                                    android:layout_weight="1"
+                                    android:hint="Sets"
+                                    android:background="@drawable/edit_text_background"
+                                    android:textColor="@android:color/black"
+                                    android:textColorHint="@android:color/darker_gray" />
+
+                                <EditText
+                                    android:id="@+id/etRPE"
+                                    android:layout_width="48dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="16dp"
+                                    android:hint="RPE"
+                                    android:background="@drawable/edit_text_background"
+                                    android:textColor="@android:color/black"
+                                    android:textColorHint="@android:color/darker_gray" />
+
+                                <ImageButton
+                                    android:id="@+id/btnAddWorkout"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:background="@null"
+                                    android:contentDescription="@string/add_workout"
+                                    android:src="@android:drawable/ic_input_add" />
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvWorkouts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
-        </HorizontalScrollView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvWorkouts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/horizontalScrollView"/>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header"
-            app:menu="@menu/nav_menu" />
+        </ScrollView>
     </RelativeLayout>
-</ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu" />
+</androidx.drawerlayout.widget.DrawerLayout>

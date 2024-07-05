@@ -10,17 +10,19 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.productionproject.R
 import com.example.productionproject.data.TrainingDay
 import com.example.productionproject.data.TrainingDayManager
 import com.example.productionproject.data.Workout
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
-class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener {
+class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener, NavigationView.OnNavigationItemSelectedListener {
     private lateinit var workoutAdapter: WorkoutAdapter
     private val workouts = mutableListOf<Workout>()
     private val trainingDays = mutableListOf<TrainingDay>()
@@ -34,6 +36,23 @@ class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_strength)
+        Log.d("StrengthActivity", "onCreate called")
+
+        // Navigation drawer setup
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
+        val drawerLayout = findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawer_layout)
+        val navView = findViewById<NavigationView>(R.id.nav_view)
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar,
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
+
+        setupCustomToolbar(toolbar, toggle)
 
         userId = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -45,20 +64,11 @@ class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener {
 
         initializeViews()
         loadTrainingDays()
-        Log.d("StrengthActivity", "onCreate called")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d("StrengthActivity", "onResume called")
-        highlightNavigationItem()
-    }
-
-    private fun highlightNavigationItem() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_view)
-        val navigationItemId = getNavigationMenuItemId()
-        Log.d("StrengthActivity", "Highlighting navigation item: $navigationItemId")
-        bottomNavigationView.selectedItemId = navigationItemId
+        highlightNavigationItem(findViewById(R.id.nav_view))
     }
 
     private fun initializeViews() {
@@ -106,7 +116,6 @@ class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener {
                 workoutAdapter.notifyDataSetChanged()
             }
         }
-
 
         btnAddWorkout.setOnClickListener {
             val selectedDay = spinnerTrainingDays.selectedItem as? TrainingDay
@@ -156,6 +165,11 @@ class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener {
                     workouts.add(workout)
                     workoutAdapter.notifyItemInserted(workouts.size - 1)
                     Toast.makeText(this, "Workout added successfully.", Toast.LENGTH_SHORT).show()
+                    // Clear input fields
+                    findViewById<EditText>(R.id.etWorkoutName).text.clear()
+                    findViewById<EditText>(R.id.etReps).text.clear()
+                    findViewById<EditText>(R.id.etSets).text.clear()
+                    findViewById<EditText>(R.id.etRPE).text.clear()
                 } else {
                     Toast.makeText(this, "Failed to add workout: $message", Toast.LENGTH_LONG).show()
                 }
