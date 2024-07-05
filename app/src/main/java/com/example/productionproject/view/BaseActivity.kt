@@ -46,10 +46,10 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         navView.setNavigationItemSelectedListener(this)
         highlightNavigationItem(navView)
 
-        setupCustomToolbar(toolbar)
+        setupCustomToolbar(toolbar, toggle)
     }
 
-    private fun setupCustomToolbar(toolbar: Toolbar) {
+    fun setupCustomToolbar(toolbar: Toolbar, toggle: ActionBarDrawerToggle) {
         // Ensure the custom toolbar setup is consistent
         try {
             val typeface = ResourcesCompat.getFont(this, R.font.proxima_nova_black)
@@ -83,6 +83,10 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             )
             layoutParams.gravity = Gravity.CENTER
             toolbar.addView(linearLayout, layoutParams)
+
+            // Ensure ActionBarDrawerToggle is added
+            toggle.isDrawerIndicatorEnabled = true
+            toggle.syncState()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -101,7 +105,8 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val activityClass = when (item.itemId) {
+        val currentActivityClass = this::class.java
+        val targetActivityClass = when (item.itemId) {
             R.id.navigation_profile -> ProfileActivity::class.java
             R.id.navigation_macro -> MacroActivity::class.java
             R.id.navigation_strength -> StrengthActivity::class.java
@@ -114,8 +119,12 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             else -> null
         }
 
-        activityClass?.let {
-            startActivity(Intent(this, it))
+        targetActivityClass?.let {
+            if (currentActivityClass != it) {
+                val intent = Intent(this, it)
+                startActivity(intent)
+                finish() // Optional: Close the current activity to avoid back navigation to the same activity
+            }
         }
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
