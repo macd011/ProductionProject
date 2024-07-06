@@ -7,10 +7,11 @@ data class TrainingDay(
     var id: String = "",
     var userId: String = "",
     var name: String = "",
+    var notes: String = "",
     var workouts: MutableList<Workout> = mutableListOf()
 ) {
     override fun toString(): String {
-        return name // This ensures the name is shown in the spinner
+        return name
     }
 }
 
@@ -33,6 +34,23 @@ class TrainingDayManager {
             .addOnFailureListener { e ->
                 Log.e(TAG, "Error adding training day", e)
                 completion(false, e.localizedMessage ?: "An error occurred.", null)
+            }
+    }
+
+    fun saveTrainingDayWithNotes(userId: String, trainingDayId: String, date: String, notes: String, completion: (Boolean, String) -> Unit) {
+        val trainingDayRef = db.collection("Users").document(userId).collection("TrainingDays").document(trainingDayId)
+        val data = mapOf(
+            "name" to date,
+            "notes" to notes
+        )
+        trainingDayRef.set(data)
+            .addOnSuccessListener {
+                Log.d(TAG, "Training day and notes saved successfully.")
+                completion(true, "Training day and notes saved successfully.")
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error saving training day and notes: ${e.localizedMessage}")
+                completion(false, "Error saving training day and notes: ${e.localizedMessage}")
             }
     }
 
@@ -67,7 +85,6 @@ class TrainingDayManager {
                 completion(emptyList())
             }
     }
-
 
     fun addWorkoutToDay(userId: String, trainingDayId: String, workout: Workout, completion: (Boolean, String) -> Unit) {
         if (userId.isBlank() || trainingDayId.isBlank()) {
@@ -140,9 +157,4 @@ class TrainingDayManager {
                 completion(false, "Failed to delete workout: ${e.localizedMessage}")
             }
     }
-
-    fun loadWorkoutsForDay() {
-
-    }
-
 }

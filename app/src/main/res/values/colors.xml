@@ -26,4 +26,6 @@
     <color name="button_background_color">#344d56</color>
     <color name="dark_theme">#344d56</color>
     <color name="light_theme">#506876</color>
+    <color name="session_marker">#B54324</color>
+
 </resources>
