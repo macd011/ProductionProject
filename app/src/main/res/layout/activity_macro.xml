@@ -76,9 +76,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Height (cm)"
-                            android:inputType="numberDecimal"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/edit_text_background"/>
+                            android:inputType="numberDecimal"/>
 
                         <EditText
                             android:id="@+id/editTextWeight"
@@ -86,8 +84,7 @@
                             android:layout_height="wrap_content"
                             android:hint="Weight (kg)"
                             android:inputType="numberDecimal"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/edit_text_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <EditText
                             android:id="@+id/editTextAge"
@@ -95,139 +92,106 @@
                             android:layout_height="wrap_content"
                             android:hint="Age"
                             android:inputType="number"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/edit_text_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <Spinner
                             android:id="@+id/spinnerGender"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:entries="@array/gender_options"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/spinner_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <Spinner
                             android:id="@+id/spinnerUnits"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:entries="@array/unit_options"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/spinner_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <Spinner
                             android:id="@+id/spinnerActivityLevel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:entries="@array/activity_level_options"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/spinner_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <Spinner
                             android:id="@+id/spinnerGoal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:entries="@array/goal_options"
-                            android:layout_marginBottom="16dp"
-                            android:background="@drawable/spinner_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <Button
                             android:id="@+id/buttonCalculate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Calculate Macros"
-                            android:textAllCaps="true"
+                            android:text="CALCULATE MACROS"
                             android:textColor="@android:color/white"
                             android:background="@drawable/button_background"
-                            android:layout_marginBottom="8dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="**For best results, consult your Nutritionist**"
-                            android:textColor="@android:color/black"
-                            android:textSize="12sp"
-                            android:gravity="center"
                             android:layout_marginTop="16dp"/>
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="6dp">
+                    android:text="**For best results, consult your Nutritionist**"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="16dp"
+                    android:layout_marginBottom="16dp"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
+                <TextView
+                    android:id="@+id/textViewCalories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TDEE: "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingTop="16dp"
+                    android:textColor="@android:color/black"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Your Macros"
-                            android:textColor="@android:color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:layout_gravity="center_horizontal"
-                            android:paddingBottom="8dp"/>
+                <TextView
+                    android:id="@+id/textViewTargetCalories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Target Calories: "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingTop="16dp"
+                    android:textColor="@android:color/black"/>
 
-                        <TextView
-                            android:id="@+id/textViewCalories"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="TDEE:"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@android:color/black"
-                            android:paddingTop="8dp"/>
+                <TextView
+                    android:id="@+id/textViewCarbs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Carbs: "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingTop="16dp"
+                    android:textColor="@android:color/black"/>
 
-                        <TextView
-                            android:id="@+id/textViewTargetCalories"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Target Calories:"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@android:color/black"
-                            android:paddingTop="8dp"/>
+                <TextView
+                    android:id="@+id/textViewProtein"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Protein: "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingTop="16dp"
+                    android:textColor="@android:color/black"/>
 
-                        <TextView
-                            android:id="@+id/textViewProtein"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Protein:"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@android:color/black"
-                            android:paddingTop="8dp"/>
+                <TextView
+                    android:id="@+id/textViewFat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fat: "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingTop="16dp"
+                    android:textColor="@android:color/black"/>
 
-                        <TextView
-                            android:id="@+id/textViewFat"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Fat:"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@android:color/black"
-                            android:paddingTop="8dp"/>
-
-                        <TextView
-                            android:id="@+id/textViewCarbs"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Carbs:"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@android:color/black"
-                            android:paddingTop="8dp"/>
-
-                        <TextView
-                            android:id="@+id/textViewBMI"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="BMI:"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@android:color/black"
-                            android:paddingTop="8dp"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/textViewBMI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BMI: "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingTop="16dp"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

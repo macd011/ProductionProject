@@ -2,15 +2,15 @@ package com.example.productionproject.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
 import com.example.productionproject.R
 import com.example.productionproject.databinding.ActivityCardioBinding
-import com.google.android.material.navigation.NavigationView
+import kotlin.math.roundToInt
 
-class CardioActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class CardioActivity : BaseActivity() {
 
     private lateinit var binding: ActivityCardioBinding
 
@@ -24,12 +24,12 @@ class CardioActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
         Log.d("CardioActivity", "onCreate called")
 
         // Navigation drawer setup
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
         val drawerLayout = findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawer_layout)
-        val navView = findViewById<NavigationView>(R.id.nav_view)
-        val toggle = ActionBarDrawerToggle(
+        val navView = findViewById<com.google.android.material.navigation.NavigationView>(R.id.nav_view)
+        val toggle = androidx.appcompat.app.ActionBarDrawerToggle(
             this, drawerLayout, toolbar,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -45,11 +45,20 @@ class CardioActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
 
     override fun onResume() {
         super.onResume()
-        Log.d("CardioActivity", "onResume called")
         highlightNavigationItem(findViewById(R.id.nav_view))
+        Log.d("CardioActivity", "onResume called")
     }
 
     private fun initializeViews() {
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.gender_options,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerGender.adapter = adapter
+        }
+
         ArrayAdapter.createFromResource(
             this,
             R.array.zone_options,
@@ -67,6 +76,14 @@ class CardioActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerUnits.adapter = adapter
         }
+
+        binding.spinnerUnits.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                updateHintsBasedOnUnits(binding.spinnerUnits.selectedItem.toString())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
     }
 
     private fun setupListeners() {
@@ -76,18 +93,15 @@ class CardioActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
     }
 
     private fun calculatePace() {
-        val height = binding.editTextHeight.text.toString().toDoubleOrNull()
         val weight = binding.editTextWeight.text.toString().toDoubleOrNull()
+        val height = binding.editTextHeight.text.toString().toDoubleOrNull()
         val age = binding.editTextAge.text.toString().toIntOrNull()
 
         if (weight == null || height == null || age == null) {
-            Toast.makeText(this, "Please enter valid values for height, weight, and age.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please enter valid values for weight, height, and age.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val units = binding.spinnerUnits.selectedItem.toString()
-        val weightInKg = convertWeight(weight, units)
-        val heightInCm = convertHeight(height, units)
         val gender = binding.spinnerGender.selectedItem.toString()
         val zone = binding.spinnerZone.selectedItemPosition
 
@@ -96,19 +110,13 @@ class CardioActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
         binding.textViewResult.text = "Suggested Pace: $suggestedPace"
     }
 
-    private fun convertWeight(weight: Double?, units: String): Double {
-        return if (units == "Imperial (lbs, in)") {
-            weight?.times(0.453592) ?: 0.0 // Convert pounds to kilograms
+    private fun updateHintsBasedOnUnits(units: String) {
+        if (units == "Imperial (lbs, in)") {
+            binding.editTextHeight.hint = "Height (in)"
+            binding.editTextWeight.hint = "Weight (lbs)"
         } else {
-            weight ?: 0.0 // Assume metric (kg) is entered
-        }
-    }
-
-    private fun convertHeight(height: Double?, units: String): Double {
-        return if (units == "Imperial (lbs, in)") {
-            height?.times(2.54) ?: 0.0 // Convert inches to centimeters
-        } else {
-            height ?: 0.0 // Assume metric (cm) is entered
+            binding.editTextHeight.hint = "Height (cm)"
+            binding.editTextWeight.hint = "Weight (kg)"
         }
     }
 
@@ -117,7 +125,7 @@ class CardioActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
     }
 
     private fun calculateSuggestedPace(mhr: Int, zone: Int): String {
-        val lowerBound = mhr * when(zone) {
+        val lowerBound = mhr * when (zone) {
             0 -> 0.50
             1 -> 0.60
             2 -> 0.70
@@ -125,7 +133,7 @@ class CardioActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
             4 -> 0.90
             else -> 0.50
         }
-        val upperBound = mhr * when(zone) {
+        val upperBound = mhr * when (zone) {
             0 -> 0.60
             1 -> 0.70
             2 -> 0.80
@@ -133,6 +141,6 @@ class CardioActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
             4 -> 1.00
             else -> 0.60
         }
-        return "Zone $zone: ${lowerBound.toInt()} - ${upperBound.toInt()} bpm"
+        return "Zone $zone: ${lowerBound.roundToInt()} - ${upperBound.roundToInt()} bpm"
     }
 }

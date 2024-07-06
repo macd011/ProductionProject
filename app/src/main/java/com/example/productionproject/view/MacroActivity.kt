@@ -38,7 +38,6 @@ class MacroActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
-        // Set up custom toolbar
         setupCustomToolbar(toolbar, toggle)
 
         initializeSpinners()
@@ -47,7 +46,6 @@ class MacroActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
 
     override fun onResume() {
         super.onResume()
-        Log.d("MacroActivity", "onResume called")
         highlightNavigationItem(findViewById(R.id.nav_view))
     }
 
@@ -106,11 +104,7 @@ class MacroActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
                 val calculator = MacroCalculator()
                 val tdee = calculator.calculateTDEE(gender, weight, height, age, activityLevel)
                 val goal = binding.spinnerGoal.selectedItem.toString()
-                val adjustedCalories = when (goal) {
-                    "Bulking" -> tdee + 500
-                    "Cutting" -> tdee - 500
-                    else -> tdee
-                }
+                val adjustedCalories = calculator.adjustCaloriesForGoal(tdee, goal)
                 val macros = calculator.calculateMacros(adjustedCalories, 45.0, 30.0, 25.0)
 
                 binding.textViewCalories.text = "TDEE: ${tdee.roundToInt()} kcal"

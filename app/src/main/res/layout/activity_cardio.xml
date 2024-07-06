@@ -60,14 +60,23 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
+                        <TextView
+                            android:id="@+id/tvHeaderInput"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Enter your details and calculate"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingBottom="8dp"/>
+
                         <EditText
                             android:id="@+id/editTextHeight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Height (cm)"
-                            android:inputType="numberDecimal"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/edit_text_background"/>
+                            android:inputType="numberDecimal"/>
 
                         <EditText
                             android:id="@+id/editTextWeight"
@@ -75,8 +84,7 @@
                             android:layout_height="wrap_content"
                             android:hint="Weight (kg)"
                             android:inputType="numberDecimal"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/edit_text_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <EditText
                             android:id="@+id/editTextAge"
@@ -84,55 +92,48 @@
                             android:layout_height="wrap_content"
                             android:hint="Age"
                             android:inputType="number"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/edit_text_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <Spinner
                             android:id="@+id/spinnerGender"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:entries="@array/gender_options"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/spinner_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <Spinner
                             android:id="@+id/spinnerUnits"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:entries="@array/unit_options"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/spinner_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <Spinner
                             android:id="@+id/spinnerZone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:entries="@array/zone_options"
-                            android:layout_marginBottom="16dp"
-                            android:background="@drawable/spinner_background"/>
+                            android:layout_marginTop="8dp"/>
 
                         <Button
                             android:id="@+id/buttonCalculate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Calculate"
-                            android:textAllCaps="true"
+                            android:text="CALCULATE PACE"
                             android:textColor="@android:color/white"
                             android:background="@drawable/button_background"
-                            android:layout_marginBottom="8dp"/>
+                            android:layout_marginTop="16dp"/>
 
-                        <TextView
-                            android:id="@+id/textViewResult"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Result:"
-                            android:textStyle="bold"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:paddingTop="16dp"
-                            android:textColor="@android:color/black"
-                            android:layout_gravity="center_horizontal"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textViewResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Result:"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingTop="16dp"
+                    android:textColor="@android:color/black"/>
+
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

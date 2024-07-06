@@ -65,8 +65,7 @@
                             android:layout_height="wrap_content"
                             android:hint="Enter Training Day"
                             android:inputType="text"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/edit_text_background"/>
+                            android:layout_marginBottom="8dp" />
 
                         <Button
                             android:id="@+id/btnAddDay"
@@ -81,8 +80,7 @@
                             android:id="@+id/spinnerTrainingDays"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/spinner_background"/>
+                            android:layout_marginBottom="8dp" />
 
                         <HorizontalScrollView
                             android:layout_width="match_parent"
