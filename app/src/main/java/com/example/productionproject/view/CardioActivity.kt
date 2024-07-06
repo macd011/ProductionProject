@@ -3,80 +3,113 @@ package com.example.productionproject.view
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
 import com.example.productionproject.R
+import com.example.productionproject.databinding.ActivityCardioBinding
+import com.google.android.material.navigation.NavigationView
 
-class CardioActivity : BaseActivity() {
+class CardioActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var editTextWeight: EditText
-    private lateinit var editTextHeight: EditText
-    private lateinit var editTextAge: EditText
-    private lateinit var spinnerGender: Spinner
-    private lateinit var spinnerZone: Spinner
-    private lateinit var buttonCalculate: Button
-    private lateinit var textViewResult: TextView
+    private lateinit var binding: ActivityCardioBinding
 
     override fun getContentViewId(): Int = R.layout.activity_cardio
     override fun getNavigationMenuItemId(): Int = R.id.navigation_cardio
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cardio)
+        binding = ActivityCardioBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        Log.d("CardioActivity", "onCreate called")
+
+        // Navigation drawer setup
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
+        val drawerLayout = findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawer_layout)
+        val navView = findViewById<NavigationView>(R.id.nav_view)
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar,
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
+
+        setupCustomToolbar(toolbar, toggle)
+
         initializeViews()
         setupListeners()
-        Log.d("CardioActivity", "onCreate called")
     }
 
     override fun onResume() {
         super.onResume()
         Log.d("CardioActivity", "onResume called")
+        highlightNavigationItem(findViewById(R.id.nav_view))
     }
 
     private fun initializeViews() {
-        editTextWeight = findViewById(R.id.editTextWeight)
-        editTextHeight = findViewById(R.id.editTextHeight)
-        editTextAge = findViewById(R.id.editTextAge)
-        spinnerGender = findViewById(R.id.spinnerGender)
-        spinnerZone = findViewById(R.id.spinnerZone)
-        buttonCalculate = findViewById(R.id.buttonCalculate)
-        textViewResult = findViewById(R.id.textViewResult)
-
         ArrayAdapter.createFromResource(
             this,
             R.array.zone_options,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerZone.adapter = adapter
+            binding.spinnerZone.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.unit_options,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerUnits.adapter = adapter
         }
     }
 
     private fun setupListeners() {
-        buttonCalculate.setOnClickListener {
+        binding.buttonCalculate.setOnClickListener {
             calculatePace()
         }
     }
 
     private fun calculatePace() {
-        val weight = editTextWeight.text.toString().toDoubleOrNull()
-        val height = editTextHeight.text.toString().toDoubleOrNull()
-        val age = editTextAge.text.toString().toIntOrNull()
+        val height = binding.editTextHeight.text.toString().toDoubleOrNull()
+        val weight = binding.editTextWeight.text.toString().toDoubleOrNull()
+        val age = binding.editTextAge.text.toString().toIntOrNull()
 
         if (weight == null || height == null || age == null) {
-            Toast.makeText(this, "Please enter valid values for weight, height, and age.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please enter valid values for height, weight, and age.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val gender = spinnerGender.selectedItem.toString()
-        val zone = spinnerZone.selectedItemPosition
+        val units = binding.spinnerUnits.selectedItem.toString()
+        val weightInKg = convertWeight(weight, units)
+        val heightInCm = convertHeight(height, units)
+        val gender = binding.spinnerGender.selectedItem.toString()
+        val zone = binding.spinnerZone.selectedItemPosition
 
         val mhr = calculateHeartRate(age)
         val suggestedPace = calculateSuggestedPace(mhr, zone)
-        textViewResult.text = "Suggested Pace: $suggestedPace"
+        binding.textViewResult.text = "Suggested Pace: $suggestedPace"
+    }
+
+    private fun convertWeight(weight: Double?, units: String): Double {
+        return if (units == "Imperial (lbs, in)") {
+            weight?.times(0.453592) ?: 0.0 // Convert pounds to kilograms
+        } else {
+            weight ?: 0.0 // Assume metric (kg) is entered
+        }
+    }
+
+    private fun convertHeight(height: Double?, units: String): Double {
+        return if (units == "Imperial (lbs, in)") {
+            height?.times(2.54) ?: 0.0 // Convert inches to centimeters
+        } else {
+            height ?: 0.0 // Assume metric (cm) is entered
+        }
     }
 
     private fun calculateHeartRate(age: Int): Int {

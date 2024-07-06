@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="default_primary">#3F51B5</color>
+    <color name="default_primary_dark">#303F9F</color>
+    <color name="default_accent">#FF4081</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -20,4 +23,7 @@
     <color name="dark_nav_bar">#A9A9A9</color>
     <color name="light_blue">#007FFF</color>
     <color name="widget_border">#007FFF</color>
+    <color name="button_background_color">#344d56</color>
+    <color name="dark_theme">#344d56</color>
+    <color name="light_theme">#506876</color>
 </resources>
