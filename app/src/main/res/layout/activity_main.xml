@@ -21,83 +21,108 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:titleTextColor="@android:color/black" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:layout_below="@id/toolbar"
-            android:padding="16dp"
-            android:gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/tvHeaderDiary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TRAINING DIARY"
-                android:textColor="@android:color/black"
-                android:textSize="41sp"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                android:paddingBottom="7dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/proxima_nova_black"/>
-
-            <TextView
-                android:id="@+id/current_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:paddingBottom="16dp"
-                android:fontFamily="@font/proxima_nova_black"/>
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                android:weightSum="2"
-                android:layout_marginBottom="16dp">
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center_horizontal">
 
-                <Button
-                    android:id="@+id/btnLogWorkout"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvHeaderDiary"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Log Workout"
-                    android:background="@drawable/button_background"
-                    android:textColor="@android:color/white"
-                    android:layout_marginEnd="8dp"/>
+                    android:text="TRAINING DIARY"
+                    android:textColor="@android:color/black"
+                    android:textSize="41sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="7dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/proxima_nova_black"/>
 
-                <Button
-                    android:id="@+id/btnLogWeight"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/current_date"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Log Weight"
-                    android:background="@drawable/button_background"
-                    android:textColor="@android:color/white"
-                    android:layout_marginStart="8dp"/>
-            </LinearLayout>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:paddingBottom="16dp"
+                    android:fontFamily="@font/proxima_nova_black"/>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <CalendarView
-                    android:id="@+id/calendarView"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="16dp">
 
-                <!-- This FrameLayout will contain the custom markers -->
+                    <Button
+                        android:id="@+id/btnLogWorkout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Log Workout"
+                        android:background="@drawable/button_background"
+                        android:textColor="@android:color/white"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnLogWeight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Log Weight"
+                        android:background="@drawable/button_background"
+                        android:textColor="@android:color/white"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
                 <FrameLayout
-                    android:id="@+id/calendarOverlay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top"/>
-            </FrameLayout>
-        </LinearLayout>
+                    android:layout_marginTop="10dp">
+
+                    <CalendarView
+                        android:id="@+id/calendarView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <!-- This FrameLayout will contain the custom markers -->
+                    <FrameLayout
+                        android:id="@+id/calendarOverlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/weightProgressLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Weight Progress Graph"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="8dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginTop="10dp"/>
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/weightProgressGraph"
+                    android:layout_width="match_parent"
+                    android:layout_height="99dp"
+                    android:layout_marginTop="10dp" />
+
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
