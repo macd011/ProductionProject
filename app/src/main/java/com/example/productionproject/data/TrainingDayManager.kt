@@ -67,13 +67,13 @@ class TrainingDayManager {
                 var loadedDays = 0
 
                 if (days.isEmpty()) {
-                    completion(emptyList())  // Immediately return if there are no days to process
+                    completion(emptyList())
                 } else {
                     days.forEach { day ->
                         loadWorkoutsForDay(userId, day.id) { workouts, message ->
                             day.workouts = workouts?.toMutableList() ?: mutableListOf()
                             loadedDays++
-                            if (loadedDays == dayCount) { // Check if all days have their workouts loaded
+                            if (loadedDays == dayCount) {
                                 completion(days)
                             }
                         }

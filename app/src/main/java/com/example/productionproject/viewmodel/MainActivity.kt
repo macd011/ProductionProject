@@ -67,7 +67,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         val logWorkoutButton: Button = findViewById(R.id.btnLogWorkout)
         logWorkoutButton.setOnClickListener {
-            // Pass the current date to showPopup method
             val calendar = Calendar.getInstance()
             showPopup(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
         }
@@ -76,7 +75,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         userId = FirebaseAuth.getInstance().currentUser?.uid
 
         if (userId.isNullOrEmpty()) {
-            // Handle user not logged in
             return
         }
 
@@ -108,7 +106,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         })
         rvWorkouts.adapter = workoutAdapter
 
-        // Add "None Selected" option at the beginning
         val noneSelected = TrainingDay(id = "", userId = "", name = "None Selected")
         trainingDays.add(0, noneSelected)
 
@@ -132,11 +129,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
-                    // No action needed
                 }
             }
 
-            // Load existing session data if it exists
             loadSessionData(date) { sessionData ->
                 editTextNotes.setText(sessionData["notes"] ?: "")
                 val trainingDayId = sessionData["trainingDayId"]
@@ -199,7 +194,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     saveWeightEntry(weightEntry)
                     loadWeightEntries { weightEntries ->
                         weightAdapter.updateWeightEntries(weightEntries)
-                        displayWeightGraph(weightEntries) // Update the graph after saving weight entry
+                        displayWeightGraph(weightEntries)
                     }
                 } else {
                     Toast.makeText(this, "Please enter a valid weight", Toast.LENGTH_SHORT).show()
@@ -248,8 +243,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             db.collection("Users").document(uid).collection("Sessions").document(date).set(sessionData)
                 .addOnSuccessListener {
                     Log.d("MainActivity", "Session saved successfully for date: $date")
-                    // Add a marker to the calendar view to indicate a saved session
-                    addSessionMarker(date)
                 }
                 .addOnFailureListener { e ->
                     Log.e("MainActivity", "Error saving session: ${e.localizedMessage}")
@@ -328,13 +321,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    private fun addSessionMarker(date: String) {
-        // Add logic to visually mark the date on the calendar
-    }
 
     private fun displayWeightGraph(weightEntries: List<WeightEntry>) {
         val graph = findViewById<GraphView>(R.id.weightProgressGraph)
         graph.removeAllSeries()
+
+        if (weightEntries.isEmpty()) {
+            val emptySeries = LineGraphSeries<DataPoint>(arrayOf(DataPoint(0.0, 0.0)))
+            graph.addSeries(emptySeries)
+            return
+        }
 
         val series = LineGraphSeries<DataPoint>()
         weightEntries.forEach { entry ->
@@ -346,7 +342,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         graph.addSeries(series)
 
-        // Set manual X bounds to have nice steps
         graph.viewport.isXAxisBoundsManual = true
         graph.viewport.setMinX(weightEntries.firstOrNull()?.let {
             SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(it.date)?.time?.toDouble()
@@ -355,23 +350,32 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(it.date)?.time?.toDouble()
         } ?: 0.0)
 
-        // Set manual Y bounds
-        graph.viewport.isYAxisBoundsManual = true
-        graph.viewport.setMinY(70.0)
-        graph.viewport.setMaxY(120.0)
+        val minY = weightEntries.minByOrNull { it.weight }?.weight ?: 70.0
+        val maxY = weightEntries.maxByOrNull { it.weight }?.weight ?: 120.0
+        graph.viewport.setMinY(minY - 5)
+        graph.viewport.setMaxY(maxY + 5)
 
         graph.gridLabelRenderer.labelFormatter = DateAsXAxisLabelFormatter(this)
-        graph.gridLabelRenderer.numHorizontalLabels = 3 // only 3 because of the space
+        graph.gridLabelRenderer.numHorizontalLabels = 3
 
-        // Set the text size for the graph labels
         graph.gridLabelRenderer.textSize = 30f
         graph.gridLabelRenderer.horizontalAxisTitle = "Date"
         graph.gridLabelRenderer.verticalAxisTitle = "Weight (kg)"
 
-        // Enable scaling and scrolling
         graph.viewport.isScalable = true
         graph.viewport.setScalableY(true)
+
+        series.color = android.graphics.Color.WHITE
+        graph.gridLabelRenderer.gridColor = android.graphics.Color.WHITE
+        graph.gridLabelRenderer.verticalLabelsColor = android.graphics.Color.WHITE
+        graph.gridLabelRenderer.horizontalLabelsColor = android.graphics.Color.WHITE
+        graph.gridLabelRenderer.horizontalAxisTitleColor = android.graphics.Color.WHITE
+        graph.gridLabelRenderer.verticalAxisTitleColor = android.graphics.Color.WHITE
+
+        graph.setBackgroundColor(resources.getColor(R.color.button_background_color, null))
     }
+
+
 
     private fun Double.roundTo(decimals: Int): Double {
         var multiplier = 1.0
@@ -387,7 +391,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 deleteWeightEntry(weightEntry.id)
                 loadWeightEntries { weightEntries ->
                     (rvWeightEntries.adapter as? WeightAdapter)?.updateWeightEntries(weightEntries)
-                    displayWeightGraph(weightEntries) // Update the graph after deleting weight entry
+                    displayWeightGraph(weightEntries)
                 }
             }
             .setNegativeButton("No", null)

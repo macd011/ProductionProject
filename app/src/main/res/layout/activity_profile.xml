@@ -71,13 +71,51 @@
                         android:contentDescription="@string/edit_profile_picture" />
                 </RelativeLayout>
 
-                <CalendarView
-                    android:id="@+id/calendarView"
+                <TextView
+                    android:id="@+id/tvDaysInRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/profileSection"
-                    android:textColor="#FFFFFF"
-                    android:weekDayTextAppearance="@style/CalendarWidgetStyle" />
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font.proxima_nova_black"
+                    android:text="Days in a Row: 0"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvSessionsLogged"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvDaysInRow"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/proxima_nova_black"
+                    android:text="Sessions Logged: 0"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvWeightLogged"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvSessionsLogged"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/proxima_nova_black"
+                    android:text="Weight Entries Logged: 0"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <Switch
+                    android:id="@+id/switchNotifications"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvWeightLogged"
+                    android:layout_marginTop="32dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="Enable Weight Logging Notifications"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/proxima_nova_black" />
+
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

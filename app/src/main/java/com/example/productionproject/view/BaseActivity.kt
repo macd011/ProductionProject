@@ -12,13 +12,17 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.productionproject.R
 import com.example.productionproject.viewmodel.MainActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 
 abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     protected abstract fun getContentViewId(): Int
@@ -47,10 +51,35 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         highlightNavigationItem(navView)
 
         setupCustomToolbar(toolbar, toggle)
+
+        val headerView = navView.getHeaderView(0)
+        val imageViewProfilePicture: ImageView = headerView.findViewById(R.id.imageViewProfilePicture)
+
+        loadProfilePicture(imageViewProfilePicture)
+    }
+
+    private fun loadProfilePicture(imageView: ImageView) {
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.let {
+            val storageReference = FirebaseStorage.getInstance().reference.child("profilePictures/${user.uid}")
+            storageReference.downloadUrl.addOnSuccessListener { uri ->
+                Glide.with(this)
+                    .load(uri)
+                    .apply(RequestOptions.circleCropTransform())
+                    .placeholder(R.drawable.ic_profile)
+                    .into(imageView)
+            }.addOnFailureListener {
+                imageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.ic_profile
+                    )
+                )
+            }
+        }
     }
 
     fun setupCustomToolbar(toolbar: Toolbar, toggle: ActionBarDrawerToggle) {
-        // Ensure the custom toolbar setup is consistent
         try {
             val typeface = ResourcesCompat.getFont(this, R.font.proxima_nova_black)
             val textView = TextView(this)
@@ -84,7 +113,6 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             layoutParams.gravity = Gravity.CENTER
             toolbar.addView(linearLayout, layoutParams)
 
-            // Ensure ActionBarDrawerToggle is added
             toggle.isDrawerIndicatorEnabled = true
             toggle.syncState()
         } catch (e: Exception) {

@@ -38,7 +38,6 @@ class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener, Nav
         setContentView(R.layout.activity_strength)
         Log.d("StrengthActivity", "onCreate called")
 
-        // Navigation drawer setup
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
@@ -165,7 +164,6 @@ class StrengthActivity : BaseActivity(), WorkoutAdapter.InteractionListener, Nav
                     workouts.add(workout)
                     workoutAdapter.notifyItemInserted(workouts.size - 1)
                     Toast.makeText(this, "Workout added successfully.", Toast.LENGTH_SHORT).show()
-                    // Clear input fields
                     findViewById<EditText>(R.id.etWorkoutName).text.clear()
                     findViewById<EditText>(R.id.etReps).text.clear()
                     findViewById<EditText>(R.id.etSets).text.clear()
